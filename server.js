@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 5000;
 
 const origins = (
   process.env.CORS_ORIGINS ||
-  "http://localhost:3000,http://localhost:5173,http://localhost:5174"
+  "https://entrepreneur-desk-frontend.vercel.app"
 )
   .split(",")
   .map((x) => x.trim());
