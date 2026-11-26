@@ -10,18 +10,13 @@ import slugify from "slugify";
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-const origins = (
-  process.env.CORS_ORIGINS ||
-  "https://entrepreneur-desk-frontend.vercel.app"
-)
-  .split(",")
-  .map((x) => x.trim());
-
+// Allow All Origins
 app.use(
   cors({
-    origin: (origin, cb) =>
-      cb(null, !origin || origins.includes("*") || origins.includes(origin)),
+    origin: true,
     credentials: true,
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 
