@@ -1300,14 +1300,24 @@ const upload = multer({
 });
 
 app.get("/api/admin/media", async (req, res) => {
+  const media = await col("media")
+    .find(
+      { is_deleted: false },
+      {
+        projection: {
+          _id: 0,
+          data: 0,
+        },
+      }
+    )
+    .sort({ created_at: -1 })
+    .toArray();
+
   res.json(
-    await col("media")
-      .find(
-        { is_deleted: false },
-        { projection: { _id: 0 } }
-      )
-      .sort({ created_at: -1 })
-      .toArray()
+    media.map((item) => ({
+      ...item,
+      url: `/api/media/${item.id}`,
+    }))
   );
 });
 
